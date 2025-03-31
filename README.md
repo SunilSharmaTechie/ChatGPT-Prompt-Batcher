@@ -1,4 +1,4 @@
-# 🔧 ChatGPT Prompt Batcher
+# 🔧 Prompt Sequencer Tool for ChatGPT
 
 ## Overview
 
