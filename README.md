@@ -151,9 +151,9 @@ This project is licensed under the MIT License. You are free to use, modify, and
 
 ---
 
-## 12. Live Demo / Blog / Docs
+## 12. Live Demo
 
-📎 Coming Soon: https\://suniltechie.com/blog/chatgpt-batch-tool
+📎 Coming Soon
 
 ---
 
