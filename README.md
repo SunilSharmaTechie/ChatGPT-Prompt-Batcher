@@ -1,11 +1,11 @@
-# 🔧 Prompt Sequencer Tool for ChatGPT
+# Prompt Sequencer Tool for ChatGPT
 
 ## Overview
 
 Automate the sequential prompt execution for ChatGPT or open-source LLMs.
 
 Table of Contents
-- [🔧 Prompt Sequencer Tool for ChatGPT](#-prompt-sequencer-tool-for-chatgpt)
+  - [🔧 Prompt Sequencer Tool for ChatGPT](#-prompt-sequencer-tool-for-chatgpt)
   - [Overview](#overview)
   - [2. Features](#2-features)
   - [3. Use Cases](#3-use-cases)
