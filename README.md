@@ -3,20 +3,21 @@
 ## Overview
 
 Automate the sequential prompt execution for ChatGPT or open-source LLMs.
-This tool allows you to feed prompts from a file, run them one by one, collect responses, and export the entire output into a single Markdown, TXT, or PDF file. Ideal for developers, educators, and AI builders who want to streamline multi-step content generation workflows.
 
----
-
-## 1. Problem Statement
-
-Manually entering a long list of prompts into ChatGPT, copying outputs one by one, and stitching them together is time-consuming and inefficient.
-
-This becomes a bottleneck for:
-
-- AI educators
-- Content teams
-- ML engineers
-- Developers generating structured documents or code
+Table of Contents
+- [🔧 Prompt Sequencer Tool for ChatGPT](#-prompt-sequencer-tool-for-chatgpt)
+  - [Overview](#overview)
+  - [2. Features](#2-features)
+  - [3. Use Cases](#3-use-cases)
+  - [4. Tech Stack](#4-tech-stack)
+  - [5. Input Format (JSON)](#5-input-format-json)
+  - [6. Output Format (Markdown)](#6-output-format-markdown)
+  - [7. Code: Using OpenAI GPT-4](#7-code-using-openai-gpt-4)
+  - [8. Code: Using Open-Source LLMs (Offline)](#8-code-using-open-source-llms-offline)
+  - [9. Optional Enhancements](#9-optional-enhancements)
+  - [10. Contributing](#10-contributing)
+  - [11. License](#11-license)
+  - [12. Live Demo](#12-live-demo)
 
 There is no native way to batch prompts, automate execution, and export results cleanly - especially in open workflows.
 
@@ -159,5 +160,5 @@ This project is licensed under the MIT License. You are free to use, modify, and
 
 **Built with ❤️ by Sunil Sharma**
 
-> Helping professionals master AI, full stack systems, and data workflows.
+> Helping professionals master AI, full-stack systems, and data workflows.
 
