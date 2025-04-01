@@ -4,9 +4,8 @@ A lightweight, developer-first utility to automate prompt execution workflows us
 
 
 - [ChatGPT Prompt Batcher: Automate Prompt Sequences and Export Consolidated Outputs](#chatgpt-prompt-batcher-automate-prompt-sequences-and-export-consolidated-outputs)
-      - [Problem Context](#problem-context)
+  - [Problem Context](#problem-context)
   - [Project Features \& Requirements](#project-features--requirements)
-  - [Project Features \& Requirements](#project-features--requirements-1)
       - [Core Features](#core-features)
       - [Advanced Features](#advanced-features)
       - [Enterprise-Readiness Enhancements](#enterprise-readiness-enhancements)
