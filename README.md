@@ -3,86 +3,90 @@
 A lightweight, developer-first utility to automate prompt execution workflows using ChatGPT and open-source LLMs. This tool is designed for AI engineers, tech educators, content builders, and prompt engineers who want to run structured sequences of prompts, and export the responses in a single consolidated file.
 
 
-
-
-
 - [ChatGPT Prompt Batcher: Automate Prompt Sequences and Export Consolidated Outputs](#chatgpt-prompt-batcher-automate-prompt-sequences-and-export-consolidated-outputs)
-  - [Problem Context](#problem-context)
-- [Project Features \& Requirements](#project-features--requirements)
-  - [Core Features](#core-features)
-  - [Advanced Capabilities](#advanced-capabilities)
-  - [Input Methods](#input-methods)
-- [Architecture Overview and Flow](#architecture-overview-and-flow)
-  - [System Components](#system-components)
-  - [Data Flow Diagram](#data-flow-diagram)
-- [Technology Stack and Library Overview](#technology-stack-and-library-overview)
-  - [Core Technologies](#core-technologies)
-  - [Development \& Quality Practices](#development--quality-practices)
-  - [Part of the Journey: Upcoming Integrations](#part-of-the-journey-upcoming-integrations)
-- [Directory Structure and File Responsibilities](#directory-structure-and-file-responsibilities)
-  - [Root-Level Structure](#root-level-structure)
-  - [Key Responsibilities](#key-responsibilities)
-    - [`src/core/prompt_runner.py`](#srccoreprompt_runnerpy)
-    - [`src/core/response_writer.py`](#srccoreresponse_writerpy)
-    - [`src/core/prompt_loader.py`](#srccoreprompt_loaderpy)
-    - [`src/integrations/openai_client.py`](#srcintegrationsopenai_clientpy)
-    - [`src/integrations/oss_client.py`](#srcintegrationsoss_clientpy)
-    - [`src/interfaces/cli.py`](#srcinterfacesclipy)
-    - [`src/interfaces/gui_app.py`](#srcinterfacesgui_apppy)
-    - [`src/utils/file_utils.py`](#srcutilsfile_utilspy)
-    - [`src/utils/logger.py`](#srcutilsloggerpy)
-    - [`src/utils/config.py`](#srcutilsconfigpy)
-    - [`prompts/sample_prompts.json`](#promptssample_promptsjson)
-    - [`.env.example`](#envexample)
-    - [`run.py`](#runpy)
-- [CLI Usage and Configuration Flags](#cli-usage-and-configuration-flags)
-  - [Basic Command](#basic-command)
-  - [CLI Arguments and Flags](#cli-arguments-and-flags)
-  - [Environment Configuration (.env)](#environment-configuration-env)
-    - [Example for OpenAI:](#example-for-openai)
-    - [Example for OSS (LLaMA, Ollama, Hugging Face APIs):](#example-for-oss-llama-ollama-hugging-face-apis)
-  - [Example Use Cases](#example-use-cases)
-- [Streamlit GUI Capabilities](#streamlit-gui-capabilities)
-  - [Key Functionalities](#key-functionalities)
-  - [Launching the Interface](#launching-the-interface)
-  - [Example Use Cases](#example-use-cases-1)
-  - [Design Philosophy](#design-philosophy)
-- [Output Formats and Document Styling](#output-formats-and-document-styling)
-  - [Supported Output Formats](#supported-output-formats)
-  - [Output Structure](#output-structure)
-  - [Markdown \& PDF Styling Details](#markdown--pdf-styling-details)
-  - [Customization Options](#customization-options)
-- [Error Handling and Retry Strategy](#error-handling-and-retry-strategy)
-  - [Fault Tolerance by Design](#fault-tolerance-by-design)
-  - [Retry Strategy](#retry-strategy)
-  - [Rate Limit Awareness](#rate-limit-awareness)
-  - [Graceful Degradation](#graceful-degradation)
-  - [Example Log Output](#example-log-output)
-- [Extending the Tool for New Use Cases](#extending-the-tool-for-new-use-cases)
-  - [Modular Architecture Benefits](#modular-architecture-benefits)
-  - [Extension Opportunities](#extension-opportunities)
-    - [1. Custom Backend Support](#1-custom-backend-support)
-    - [2. Prompt Validation \& Preprocessing](#2-prompt-validation--preprocessing)
-    - [3. Post-Processing Filters](#3-post-processing-filters)
-    - [4. Multi-User Collaboration](#4-multi-user-collaboration)
-    - [5. Workflow Automation Hooks](#5-workflow-automation-hooks)
-    - [6. Scheduler Support](#6-scheduler-support)
-  - [Plugin Strategy](#plugin-strategy)
-- [Security, API Keys, and Configuration Safety](#security-api-keys-and-configuration-safety)
-  - [Environment Configuration](#environment-configuration)
-  - [Secrets Handling Guidelines](#secrets-handling-guidelines)
-  - [Secure Execution Environment](#secure-execution-environment)
-  - [Sample `.env.example` Template](#sample-envexample-template)
-- [Maintaining, Scaling, and Contributing](#maintaining-scaling-and-contributing)
-  - [Maintenance Guidelines](#maintenance-guidelines)
-  - [Scalability Tips](#scalability-tips)
-  - [Contributing to the Project](#contributing-to-the-project)
-  - [Code Style \& Standards](#code-style--standards)
-  - [Issue Reporting](#issue-reporting)
-- [License, Credits, and Final Notes](#license-credits-and-final-notes)
-  - [License](#license)
-  - [Acknowledgments](#acknowledgments)
-  - [Final Notes](#final-notes)
+      - [Problem Context](#problem-context)
+  - [Project Features \& Requirements](#project-features--requirements)
+  - [Project Features \& Requirements](#project-features--requirements-1)
+      - [Core Features](#core-features)
+      - [Advanced Features](#advanced-features)
+      - [Enterprise-Readiness Enhancements](#enterprise-readiness-enhancements)
+      - [Supported Input Sources](#supported-input-sources)
+  - [Architecture Overview and Flow](#architecture-overview-and-flow)
+      - [System Components](#system-components)
+          - [1. Prompt Input Handler](#1-prompt-input-handler)
+          - [2. Prompt Execution Engine](#2-prompt-execution-engine)
+          - [3. LLM Backend Layer](#3-llm-backend-layer)
+          - [4. Output Generator](#4-output-generator)
+          - [5. Interface Layer](#5-interface-layer)
+      - [Data Flow Diagram](#data-flow-diagram)
+  - [Technology Stack and Library Overview](#technology-stack-and-library-overview)
+      - [Core Technologies](#core-technologies)
+      - [Development \& Quality Practices](#development--quality-practices)
+      - [Part of the Journey: Upcoming Integrations](#part-of-the-journey-upcoming-integrations)
+  - [Directory Structure and File Responsibilities](#directory-structure-and-file-responsibilities)
+      - [Root-Level Structure](#root-level-structure)
+      - [Key Responsibilities](#key-responsibilities)
+          - [`src/core/prompt_runner.py`](#srccoreprompt_runnerpy)
+          - [`src/core/response_writer.py`](#srccoreresponse_writerpy)
+          - [`src/core/prompt_loader.py`](#srccoreprompt_loaderpy)
+          - [`src/integrations/openai_client.py`](#srcintegrationsopenai_clientpy)
+          - [`src/integrations/oss_client.py`](#srcintegrationsoss_clientpy)
+          - [`src/interfaces/cli.py`](#srcinterfacesclipy)
+          - [`src/interfaces/gui_app.py`](#srcinterfacesgui_apppy)
+          - [`src/utils/file_utils.py`](#srcutilsfile_utilspy)
+          - [`src/utils/logger.py`](#srcutilsloggerpy)
+          - [`src/utils/config.py`](#srcutilsconfigpy)
+          - [`prompts/sample_prompts.json`](#promptssample_promptsjson)
+          - [`.env.example`](#envexample)
+          - [`run.py`](#runpy)
+  - [CLI Usage and Configuration Flags](#cli-usage-and-configuration-flags)
+      - [Basic Command](#basic-command)
+      - [CLI Arguments and Flags](#cli-arguments-and-flags)
+      - [Environment Configuration (.env)](#environment-configuration-env)
+          - [Example for OpenAI:](#example-for-openai)
+          - [Example for OSS (LLaMA, Ollama, Hugging Face APIs):](#example-for-oss-llama-ollama-hugging-face-apis)
+      - [Example Use Cases](#example-use-cases)
+  - [Streamlit GUI Capabilities](#streamlit-gui-capabilities)
+      - [Key Functionalities](#key-functionalities)
+      - [Launching the Interface](#launching-the-interface)
+      - [Example Use Cases](#example-use-cases-1)
+      - [Design Philosophy](#design-philosophy)
+  - [Output Formats and Document Styling](#output-formats-and-document-styling)
+      - [Supported Output Formats](#supported-output-formats)
+      - [Output Structure](#output-structure)
+      - [Markdown \& PDF Styling Details](#markdown--pdf-styling-details)
+      - [Customization Options](#customization-options)
+  - [Error Handling and Retry Strategy](#error-handling-and-retry-strategy)
+      - [Fault Tolerance by Design](#fault-tolerance-by-design)
+      - [Retry Strategy](#retry-strategy)
+      - [Rate Limit Awareness](#rate-limit-awareness)
+      - [Graceful Degradation](#graceful-degradation)
+      - [Example Log Output](#example-log-output)
+  - [Extending the Tool for New Use Cases](#extending-the-tool-for-new-use-cases)
+      - [Modular Architecture Benefits](#modular-architecture-benefits)
+      - [Extension Opportunities](#extension-opportunities)
+          - [1. Custom Backend Support](#1-custom-backend-support)
+          - [2. Prompt Validation \& Preprocessing](#2-prompt-validation--preprocessing)
+          - [3. Post-Processing Filters](#3-post-processing-filters)
+          - [4. Multi-User Collaboration](#4-multi-user-collaboration)
+          - [5. Workflow Automation Hooks](#5-workflow-automation-hooks)
+          - [6. Scheduler Support](#6-scheduler-support)
+      - [Plugin Strategy](#plugin-strategy)
+  - [Security, API Keys, and Configuration Safety](#security-api-keys-and-configuration-safety)
+      - [Environment Configuration](#environment-configuration)
+      - [Secrets Handling Guidelines](#secrets-handling-guidelines)
+      - [Secure Execution Environment](#secure-execution-environment)
+      - [Sample `.env.example` Template](#sample-envexample-template)
+  - [Maintaining, Scaling, and Contributing](#maintaining-scaling-and-contributing)
+      - [Maintenance Guidelines](#maintenance-guidelines)
+      - [Scalability Tips](#scalability-tips)
+      - [Contributing to the Project](#contributing-to-the-project)
+      - [Code Style \& Standards](#code-style--standards)
+      - [Issue Reporting](#issue-reporting)
+  - [License, Credits, and Final Notes](#license-credits-and-final-notes)
+      - [License](#license)
+      - [Acknowledgments](#acknowledgments)
+      - [Final Notes](#final-notes)
 
 
 ## Problem Context
@@ -102,125 +106,139 @@ Manual prompt entry and copying results from ChatGPT or LLM interfaces is ineffi
 - Integration with both OpenAI and open-source LLMs (like LLaMA, Ollama, HuggingFace models)
 - Streamlit GUI for non-technical users or internal team workflows
 
-# Project Features & Requirements
 
-The ChatGPT Prompt Batcher has been thoughtfully designed to address the needs of engineers, prompt creators, and workflow automators who manage prompt sequences across tools like ChatGPT, local LLMs, or third-party hosted models. Below is a detailed breakdown of core and advanced features this utility provides.
+## Project Features & Requirements
 
+The ChatGPT Prompt Batcher is designed to streamline batch prompt execution and output consolidation for professionals working with LLMs. Below is a comprehensive overview of its capabilities, ensuring both flexibility and extensibility for production or personal workflows.
 
+#### Core Features
 
-## Core Features
+- **Sequential Prompt Execution**: Accepts prompts in structured formats like `.json`, `.txt`, `.docx`, `.pdf`, as well as from URLs and Google Drive.
+- **Model Choice**: Supports OpenAI APIs (ChatGPT) and local/integrated open-source LLMs (LLaMA, Ollama, LM Studio, Hugging Face-hosted models).
+- **Flexible Output Export**: Consolidates output into clean `.md`, `.pdf`, or `.txt` files with prompt-wise organization.
+- **Multi-Input Modes**:
+  - File Uploads (JSON, TXT, DOCX, PDF)
+  - Streamlit-based Text Input for GUI entry
+  - Remote file access via Google Drive/Public URLs
+- **CLI & GUI Modes**:
+  - Command-Line Interface for advanced or scripted use
+  - Streamlit-powered GUI for non-technical contributors
 
-- **Batch Prompt Execution**: Accept structured input from `.json`, `.txt`, `.docx`, `.pdf`, Google Drive URLs, or public file URLs.
-- **Flexible Output Formats**: Export final outputs in `.md`, `.txt`, or `.pdf` - properly sectioned and formatted.
-- **Model Flexibility**: Seamlessly switch between OpenAI APIs and open-source LLMs (via `llama.cpp`, LM Studio, or Hugging Face APIs).
-- **CLI & GUI Support**:
-  - CLI: For advanced users who want automation or scripting (`main.py` with flags)
-  - GUI: Powered by Streamlit, for easier adoption by internal users, educators, or editors
+#### Advanced Features
 
+- **Retry Handling**: Graceful retries with backoff for API failures
+- **Prompt-to-Prompt Chaining (Planned)**: Use prior prompt output as input for the next
+- **Progress Tracking**: CLI print and/or Streamlit progress bar integration
+- **Streamed or Async Processing**: For supporting LLMs, enable streaming responses
+- **Export Analytics**: Capture token counts, response time, total cost
+- **Security**: Uses `.env` file and parameter-based auth, no hard-coded secrets
+- **Rate Limit Handling**: Includes backoff strategy and cooldown on 429 errors
+- **Error Logging Module**: Captures error details into separate log file for debugging
+- **Testing Strategy**: `pytest` framework to ensure utility correctness and reliability
+- **Prompt Templates Support**: Load and reuse prompts with dynamic variables for batch workflows
+- **Per-Prompt Custom Parameters**: Override temperature, max\_tokens, and other configs on a per-prompt basis
+- **Post-Processing Hooks**: Run custom transformations or export functions after prompt execution
 
+#### Enterprise-Readiness Enhancements
 
-## Advanced Capabilities
+- **Docker Support**: Optional `Dockerfile` to enable containerized local or server use
+- **CI/CD Integration**: GitHub Actions workflows for linting, testing, and packaging
+- **Plugin Architecture (Future Scope)**: Enable additional export formats or LLM integrations via plugins
+- **Multi-Session Support (Planned)**: For teams using the Streamlit interface simultaneously
 
-- **Parallel Batch Mode** *(Planned)*: Run non-blocking prompts when supported by the LLM
-- **Retry Logic**: Gracefully recover from failed prompts, especially under API rate limits
-- **Response Memory Chain** *(Future scope)*: Feed one prompt’s result into the next
-- **Language Detection**: Auto-detect content language and optionally apply tone/styling
-- **Analytics**: Log token usage, errors, timing, and file size summaries for optimization
+#### Supported Input Sources
 
+| Input Source         | Supported | Notes                                             |
+| -------------------- | --------- | ------------------------------------------------- |
+| JSON File            | Yes       | Must include `title` and `prompt` per entry       |
+| TXT File             | Yes       | Each line is parsed as a new prompt               |
+| Word Document (DOCX) | Yes       | Headers as prompt titles, body as prompt text     |
+| PDF File             | Yes       | Page or heading-based segmentation                |
+| Public URL (HTTP)    | Yes       | Downloads and parses supported formats            |
+| Google Drive URL     | Yes       | Requires sharing access; streamed into memory     |
+| Streamlit Input Box  | Yes       | Pasted or typed prompts can be processed directly |
 
+## Architecture Overview and Flow
 
-## Input Methods
-
-| Source Type        | Supported | Notes                                         |
-|  |  |  |
-| JSON               | Yes       | With `title` and `prompt` keys                |
-| TXT                | Yes       | Each line as an individual prompt             |
-| DOCX (Word)        | Yes       | Titles formatted using Heading styles         |
-| PDF                | Yes       | Extracts text and separates by page or header |
-| Google Drive URL   | Yes       | Must be shared and downloadable               |
-| Public file URL    | Yes       | Auto-download and parse                       |
-| Streamlit TextArea | Yes       | Supports copy-paste directly in GUI           |
-
-
-
-# Architecture Overview and Flow
-
-To ensure flexibility, speed, and modularity, the ChatGPT Prompt Batcher has been designed with a loosely coupled architecture that supports CLI and GUI workflows, integrates with multiple LLM providers, and allows various input and output formats.
-
-
-
-## System Components
-
-1. **Prompt Input Handler**
-
-   - Accepts prompts from multiple sources: JSON, TXT, DOCX, PDF, Streamlit input, or URL-based files.
-   - Uses content extractors to unify data into a clean internal format with prompt titles and bodies.
-
-2. **Prompt Execution Engine**
-
-   - Runs prompts one-by-one through the selected LLM backend (OpenAI or OSS).
-   - Handles retries, API delay configurations, and logging.
-   - Supports memory chaining (coming soon).
-
-3. **LLM Backend Layer**
-
-   - Supports both proprietary and open-source models:
-     - OpenAI (via `openai.ChatCompletion.create()`)
-     - Local models using `llama-cpp-python`, LM Studio API, or Hugging Face REST API.
-   - Switches via CLI flag or GUI dropdown.
-
-4. **Output Generator**
-
-   - Collects all responses and saves them as one file.
-   - Output options include Markdown (`.md`), PDF (`.pdf`), or Plain Text (`.txt`).
-   - Includes section headings, formatting, and original prompt context.
-
-5. **Interface Layer**
-
-   - **Command Line Interface (CLI)**: Accepts flags, config files, and logging.
-   - **Streamlit GUI**: Supports drag-and-drop file upload, manual prompt entry, and live progress visualization.
+To ensure flexibility, performance, and scalability, the ChatGPT Prompt Batcher is architected using a loosely coupled, modular design. It supports both command-line and graphical interfaces, integrates seamlessly with multiple LLM providers (OpenAI and open-source models), and accommodates a wide range of input/output formats.
 
 
 
-## Data Flow Diagram
+#### System Components
+
+The architecture is organized around five core components, each designed with separation of concerns and extensibility in mind:
+
+###### 1. Prompt Input Handler
+
+- Accepts prompts from multiple sources: JSON, TXT, DOCX, PDF, Streamlit interface, Google Drive, or public URLs.
+- Utilizes content extractors to unify and normalize input into a structured internal format (`[{title, prompt}]`).
+- Automatically supports batch uploads and bulk prompt ingestion.
+
+###### 2. Prompt Execution Engine
+
+- Sequentially processes each prompt using the selected backend.
+- Supports delay configuration, retry logic, logging, and progress tracking.
+- Future-ready to support memory chaining (passing previous output into the next prompt).
+- Accepts global and per-prompt parameters like temperature, max\_tokens, top\_p.
+
+###### 3. LLM Backend Layer
+
+- Interfaces with both proprietary and open-source model providers:
+  - OpenAI via `openai.ChatCompletion.create()`
+  - Local LLMs using `llama-cpp-python`, LM Studio, Hugging Face Inference API
+- Abstracted handler design allows for pluggable model expansion in future releases.
+
+###### 4. Output Generator
+
+- Aggregates and formats all final responses into a single export file.
+- Supports multiple formats: Markdown (`.md`), Plain Text (`.txt`), and PDF (`.pdf`).
+- Integrates with post-processing hooks for advanced formatting or routing (e.g., Notion/GitHub sync).
+- Annotates sections with prompt metadata (titles, timestamps, sources).
+
+###### 5. Interface Layer
+
+- **CLI Mode**: Fully scriptable using flags and configuration files. Includes logging, dry-run mode, and debugging output.
+- **Streamlit GUI**: Provides an accessible web interface for file uploads, prompt input, model selection, and live progress visualization.
+- Both interfaces are designed to be stateless and portable.
+- 
+
+#### Data Flow Diagram
 
 ```
-++
++------------------------------+
 |     Prompt Input Sources     |
 |  (JSON, PDF, DOCX, GDrive)   |
-+--++
++--------------+---------------+
                |
                v
-++
++------------------------------+
 |     Input Normalization      |
 | (Extract & Format Prompt Set)|
-+--++
++--------------+---------------+
                |
                v
-++
++------------------------------+
 |   Prompt Execution Engine    |
 | (Handles Delay, Retry, Logs) |
-+--++
++--------------+---------------+
                |
                v
-++
++------------------------------+
 |     LLM Backend Switcher     |
 | (OpenAI / LLaMA / HF APIs)   |
-+--++
++--------------+---------------+
                |
                v
-++
++------------------------------+
 |     Response Aggregator      |
 | (Generate .md, .pdf, .txt)   |
-+--++
++--------------+---------------+
                |
                v
-++
++------------------------------+
 |       CLI / Streamlit UI     |
-++
++------------------------------+
 ```
-
-
 
 This modular design allows for:
 
@@ -229,16 +247,15 @@ This modular design allows for:
 - Clean separation of concerns
 - Support for additional input types or LLM providers
 
-# Technology Stack and Library Overview
+## Technology Stack and Library Overview
 
 To ensure that the tool is robust, extensible, and production-grade, it is built using a well-curated stack of libraries and tools. The following technologies are used across different modules and workflows, each contributing to functionality, performance, or user experience.
 
 
-
-## Core Technologies
+#### Core Technologies
 
 | Technology        | Purpose                                                                 |
-| -- | -- |
+| ----------------- | ----------------------------------------------------------------------- |
 | Python 3.10+      | Core programming language                                               |
 | Streamlit         | Lightweight GUI for uploading files, entering prompts, and viewing logs |
 | OpenAI SDK        | Integration with GPT-3.5, GPT-4 APIs                                    |
@@ -251,9 +268,7 @@ To ensure that the tool is robust, extensible, and production-grade, it is built
 | argparse          | Argument parsing for CLI usage                                          |
 | logging           | Standardized logging and debugging across CLI and GUI                   |
 
-
-
-## Development & Quality Practices
+#### Development & Quality Practices
 
 - **Modular Design**: Each core function (input, backend, output, UI) is split into its own file/module
 - **Exception Handling**: Built-in try-catch blocks, fallback logging, and user-friendly error messages
@@ -261,9 +276,7 @@ To ensure that the tool is robust, extensible, and production-grade, it is built
 - **Markdown Formatting**: Proper sectioned formatting in `.md` output, ready for GitHub or blog publication
 - **PDF Styling**: Headers, page breaks, and title mapping for enhanced readability
 
-
-
-## Part of the Journey: Upcoming Integrations
+#### Part of the Journey: Upcoming Integrations
 
 This tool is evolving with real-world workflows. These additional integrations are part of our long-term roadmap:
 
@@ -275,114 +288,109 @@ This project is built on solid engineering principles with a focus on usability,
 
 
 
-# Directory Structure and File Responsibilities
+## Directory Structure and File Responsibilities
 
 This project follows a professional, scalable directory structure that reflects the practices of production-grade engineering teams. Each module is designed with separation of concerns, testability, and long-term maintainability in mind.
 
-
-
-## Root-Level Structure
+#### Root-Level Structure
 
 ```
 ChatGPT-Prompt-Batcher/
 │
-├── src/                            # Source code
+├── src/                            ## Source code
 │   ├── __init__.py
-│   ├── core/                       # Core logic modules
-│   │   ├── prompt_runner.py        # Executes prompt sequences
-│   │   ├── response_writer.py      # Handles export formatting
-│   │   └── prompt_loader.py        # Extracts/validates input files
+│   ├── core/                       ## Core logic modules
+│   │   ├── prompt_runner.py        ## Executes prompt sequences
+│   │   ├── response_writer.py      ## Handles export formatting
+│   │   └── prompt_loader.py        ## Extracts/validates input files
 │   │
-│   ├── integrations/              # LLM backend integrations
-│   │   ├── openai_client.py        # OpenAI API wrapper
-│   │   └── oss_client.py           # Local or hosted OSS model connector
+│   ├── integrations/              ## LLM backend integrations
+│   │   ├── openai_client.py        ## OpenAI API wrapper
+│   │   └── oss_client.py           ## Local or hosted OSS model connector
 │   │
-│   ├── interfaces/                # CLI and GUI layers
-│   │   ├── cli.py                  # CLI argument handler
-│   │   └── gui_app.py              # Streamlit-based GUI
+│   ├── interfaces/                ## CLI and GUI layers
+│   │   ├── cli.py                  ## CLI argument handler
+│   │   └── gui_app.py              ## Streamlit-based GUI
 │   │
-│   └── utils/                     # Helpers and shared logic
-│       ├── file_utils.py           # File downloading and reading
-│       ├── logger.py               # Logging configuration
-│       └── config.py               # .env loading and validation
+│   └── utils/                     ## Helpers and shared logic
+│       ├── file_utils.py           ## File downloading and reading
+│       ├── logger.py               ## Logging configuration
+│       └── config.py               ## .env loading and validation
 │
-├── prompts/                       # Sample prompt sets
+├── prompts/                       ## Sample prompt sets
 │   └── sample_prompts.json
 │
-├── .env.example                   # Template for required environment variables
-├── requirements.txt               # Python package dependencies
-├── Dockerfile                     # (Optional) Container setup
-├── README.md                      # Project documentation
-└── run.py                         # Launcher for CLI entry point
+├── .env.example                   ## Template for required environment variables
+├── requirements.txt               ## Python package dependencies
+├── Dockerfile                     ## (Optional) Container setup
+├── README.md                      ## Project documentation
+└── run.py                         ## Launcher for CLI entry point
 ```
 
 
+#### Key Responsibilities
 
-## Key Responsibilities
-
-### `src/core/prompt_runner.py`
+###### `src/core/prompt_runner.py`
 
 Contains logic for reading prompts, executing them one-by-one, and handling retry logic and delays.
 
-### `src/core/response_writer.py`
+###### `src/core/response_writer.py`
 
 Manages final aggregation of responses and converts them into Markdown, PDF, or text formats.
 
-### `src/core/prompt_loader.py`
+###### `src/core/prompt_loader.py`
 
 Parses and validates JSON, TXT, DOCX, PDF, or public URL-based input sources into a unified structure.
 
-### `src/integrations/openai_client.py`
+###### `src/integrations/openai_client.py`
 
 Handles all OpenAI API interactions including model selection, response formatting, and error catching.
 
-### `src/integrations/oss_client.py`
+###### `src/integrations/oss_client.py`
 
 Supports integration with local or remote open-source LLMs (e.g., via Ollama or Hugging Face).
 
-### `src/interfaces/cli.py`
+###### `src/interfaces/cli.py`
 
 Defines CLI commands, flags, and argument parsing for headless execution.
 
-### `src/interfaces/gui_app.py`
+###### `src/interfaces/gui_app.py`
 
 Implements the Streamlit UI for interactive prompt input, progress feedback, and result visualization.
 
-### `src/utils/file_utils.py`
+###### `src/utils/file_utils.py`
 
 Handles file input/output including Google Drive download support, URL resolution, and file type detection.
 
-### `src/utils/logger.py`
+###### `src/utils/logger.py`
 
 Configures a central logging mechanism for both CLI and GUI outputs.
 
-### `src/utils/config.py`
+###### `src/utils/config.py`
 
 Loads and validates environment variables from `.env` files and runtime flags.
 
-### `prompts/sample_prompts.json`
+###### `prompts/sample_prompts.json`
 
 A ready-to-use sample input that demonstrates proper formatting of title + prompt pairs.
 
-### `.env.example`
+###### `.env.example`
 
 Shows all required environment variables (like API keys, timeout config, etc.) with placeholder values.
 
-### `run.py`
+###### `run.py`
 
 Entry point script for CLI invocation using `python run.py --input prompts/sample_prompts.json`
 
 
-
 This directory structure is clean, testable, and extensible. It supports long-term maintainability and easy onboarding for contributors and collaborators.
 
-# CLI Usage and Configuration Flags
+## CLI Usage and Configuration Flags
 
 The tool is designed for both automation-focused developers and interactive users. This section outlines how to operate the system using the command-line interface (CLI), detailing each argument, flag, and its behavior.
 
 
-
-## Basic Command
+#### Basic Command
 
 To run the tool from the command line:
 
@@ -392,28 +400,27 @@ python run.py --input prompts/sample_prompts.json --format md --use openai
 
 
 
-## CLI Arguments and Flags
+#### CLI Arguments and Flags
 
-| Argument            | Type     | Description                                                                 |
-||-|--|
-| `--input`           | string   | Path to a local `.json`, `.txt`, `.docx`, or `.pdf` file OR a public URL    |
-| `--format`          | string   | Output file format: `md`, `pdf`, or `txt`                                   |
-| `--use`             | string   | LLM backend: `openai` or `oss`                                              |
-| `--delay`           | integer  | Delay in milliseconds between prompts (default: 1000)                       |
-| `--output`          | string   | Output filename (optional, defaults to `output_<timestamp>`)               |
-| `--title`           | string   | Title of the session (included in output headers)                           |
-| `--log-level`       | string   | Logging level: `info`, `debug`, `warning`, `error`                          |
-| `--stream`          | boolean  | If true, stream output as prompts run (when backend supports it)           |
-| `--max-tokens`      | integer  | Set maximum tokens per response (default varies by backend)                |
-| `--temperature`     | float    | Controls randomness of output (0.0 = deterministic, 1.0 = more creative)    |
+| Argument        | Type    | Description                                                              |
+| --------------- | ------- | ------------------------------------------------------------------------ |
+| `--input`       | string  | Path to a local `.json`, `.txt`, `.docx`, or `.pdf` file OR a public URL |
+| `--format`      | string  | Output file format: `md`, `pdf`, or `txt`                                |
+| `--use`         | string  | LLM backend to use: `openai` or `oss`                                    |
+| `--delay`       | integer | Delay in milliseconds between prompts (default: 1000)                    |
+| `--output`      | string  | Output filename (optional, defaults to `output_<timestamp>`)             |
+| `--title`       | string  | Title of the session (included in output headers)                        |
+| `--log-level`   | string  | Logging level: `info`, `debug`, `warning`, `error`                       |
+| `--stream`      | boolean | If true, stream output as prompts run (if backend supports it)           |
+| `--max-tokens`  | integer | Maximum tokens per response (backend-dependent default if not set)       |
+| `--temperature` | float   | Controls randomness: 0.0 = deterministic, 1.0 = highly creative          |
 
 
-
-## Environment Configuration (.env)
+#### Environment Configuration (.env)
 
 All sensitive and backend-specific configuration should go in the `.env` file. This includes both proprietary (OpenAI) and open-source (OSS) models.
 
-### Example for OpenAI:
+###### Example for OpenAI:
 ```
 OPENAI_API_KEY=sk-...
 DEFAULT_BACKEND=openai
@@ -421,7 +428,7 @@ DEFAULT_OUTPUT_FORMAT=pdf
 DEFAULT_MODEL=gpt-3.5-turbo
 ```
 
-### Example for OSS (LLaMA, Ollama, Hugging Face APIs):
+###### Example for OSS (LLaMA, Ollama, Hugging Face APIs):
 ```
 DEFAULT_BACKEND=oss
 OSS_MODEL_PATH=./models/llama-model.gguf
@@ -434,8 +441,7 @@ The tool auto-detects the backend specified in the CLI flag or `.env` and loads 
 Use `python-dotenv` to load these automatically during runtime via `config.py`.
 
 
-
-## Example Use Cases
+#### Example Use Cases
 
 - **Run a full prompt session using OpenAI and export as Markdown:**
   ```bash
@@ -454,13 +460,12 @@ Use `python-dotenv` to load these automatically during runtime via `config.py`.
 
 This CLI system is designed for professionals who need automation and control while allowing flexibility to fine-tune prompt execution workflows.
 
-# Streamlit GUI Capabilities
+## Streamlit GUI Capabilities
 
 For users who prefer a visual interface or are less familiar with the command line, the tool includes a Streamlit-based GUI. It offers intuitive features for loading prompts, configuring execution, and downloading output - all within a browser window.
 
 
-
-## Key Functionalities
+#### Key Functionalities
 
 - **Upload Prompt Files**: Drag and drop `.json`, `.txt`, `.pdf`, `.docx` files or paste prompt sequences into a textarea.
 - **Select LLM Backend**: Choose between `OpenAI` and `OSS` models via dropdown.
@@ -470,8 +475,7 @@ For users who prefer a visual interface or are less familiar with the command li
 - **Download Options**: Save the session as Markdown, PDF, or plain text.
 
 
-
-## Launching the Interface
+#### Launching the Interface
 
 To start the GUI locally, run:
 
@@ -483,7 +487,7 @@ Make sure your `.env` file is properly configured before launch.
 
 
 
-## Example Use Cases
+#### Example Use Cases
 
 - **Educators** creating AI-driven study material in bulk
 - **Content teams** organizing prompts and refining LLM responses collaboratively
@@ -491,8 +495,7 @@ Make sure your `.env` file is properly configured before launch.
 - **Internal demos** and AI writing tools for teammates
 
 
-
-## Design Philosophy
+#### Design Philosophy
 
 The GUI has been designed to:
 - Reduce friction for less technical users
@@ -502,37 +505,36 @@ The GUI has been designed to:
 It offers the same backend capabilities as the CLI while focusing on simplicity, usability, and guided prompt batch building.
 
 
-# Output Formats and Document Styling
+## Output Formats and Document Styling
 
 This tool supports exporting the batch output into multiple formats with clean styling for readability, sharing, and documentation purposes. Each export method is tailored for different end-user goals-whether technical publishing, client reporting, or internal documentation.
 
 
-
-## Supported Output Formats
+#### Supported Output Formats
 
 Additional formats such as `.docx` may be added in future updates based on user needs and collaboration feedback.
 
 | Format   | Description                                                                 |
-|-|--|
+|----------|-----------------------------------------------------------------------------|
 | Markdown (`.md`) | Ideal for developers, GitHub repos, documentation sites                  |
 | PDF (`.pdf`)      | Suitable for business sharing, academic reports, printable content       |
 | Plain Text (`.txt`)| Clean and fast format for CLI or scripting pipelines                    |
 
 
 
-## Output Structure
+#### Output Structure
 
 All exported files follow a consistent and modular structure:
 
 ```
-# Session Title (Optional)
+## Session Title (Optional)
 
-## Prompt 1 Title
+#### Prompt 1 Title
 Prompt: <Prompt text>
 Response:
 <LLM Output>
 
-## Prompt 2 Title
+#### Prompt 2 Title
 Prompt: <Prompt text>
 Response:
 <LLM Output>
@@ -546,7 +548,7 @@ Each section is:
 
 
 
-## Markdown & PDF Styling Details
+#### Markdown & PDF Styling Details
 
 - Headings: Prompt titles mapped to H2 (`##`) and section-level structure
 - Indentation: Preserved formatting inside responses
@@ -556,7 +558,7 @@ Each section is:
 
 
 
-## Customization Options
+#### Customization Options
 
 - Theming and brand colors
 - Custom logo injection in PDF exports
@@ -566,13 +568,13 @@ Each section is:
 This formatting standard is designed to support engineers, educators, and business users in consuming LLM-generated content in a structured and professional format.
 
 
-# Error Handling and Retry Strategy
+## Error Handling and Retry Strategy
 
 Building reliable prompt pipelines means gracefully handling failures, rate limits, and unexpected behaviors during execution. This section outlines the error handling architecture and retry logic designed to ensure consistent output with minimal interruption.
 
 
 
-## Fault Tolerance by Design
+#### Fault Tolerance by Design
 
 - Each prompt execution is wrapped in a try-except block to catch exceptions without stopping the entire run.
 - Failures are logged with timestamp, prompt title, and error type for traceability.
@@ -580,7 +582,7 @@ Building reliable prompt pipelines means gracefully handling failures, rate limi
 
 
 
-## Retry Strategy
+#### Retry Strategy
 
 The system automatically retries failed prompts based on configurable logic:
 
@@ -590,7 +592,7 @@ The system automatically retries failed prompts based on configurable logic:
 
 
 
-## Rate Limit Awareness
+#### Rate Limit Awareness
 
 When using APIs like OpenAI, the system checks for:
 - `RateLimitError`
@@ -603,7 +605,7 @@ On detection:
 
 
 
-## Graceful Degradation
+#### Graceful Degradation
 
 - Errors are recorded and reported at the end of execution
 - A separate section is added in the export with details of prompts that failed, along with reasons
@@ -611,7 +613,7 @@ On detection:
 
 
 
-## Example Log Output
+#### Example Log Output
 
 ```
 [2025-03-31 10:12:41] INFO Prompt 3 executed successfully.
@@ -622,13 +624,13 @@ On detection:
 This robust error management ensures the tool can scale across larger prompt batches without losing consistency or user trust.
 
 
-# Extending the Tool for New Use Cases
+## Extending the Tool for New Use Cases
 
 This tool has been architected to support extension and adaptation for a wide variety of real-world needs beyond simple prompt batching. Engineers, educators, and automation teams can tailor it to integrate with their broader ecosystems or enhance functionality over time.
 
 
 
-## Modular Architecture Benefits
+#### Modular Architecture Benefits
 
 - Each module is decoupled and designed for isolated testing and scaling.
 - Core logic (prompt execution, file parsing, backend selection) can be swapped or extended with minimal refactoring.
@@ -636,37 +638,37 @@ This tool has been architected to support extension and adaptation for a wide va
 
 
 
-## Extension Opportunities
+#### Extension Opportunities
 
 Here are example areas where the tool can be extended:
 
-### 1. Custom Backend Support
+###### 1. Custom Backend Support
 - Add new modules under `src/integrations/` for models like Claude, Gemini, or Anthropic APIs.
 - Use the same interface as `openai_client.py` to plug in easily.
 
-### 2. Prompt Validation & Preprocessing
+###### 2. Prompt Validation & Preprocessing
 - Add NLP rules, linting, or AI-based validation for user-generated prompts.
 - Automatically flag dangerous, incomplete, or misaligned prompt structures.
 
-### 3. Post-Processing Filters
+###### 3. Post-Processing Filters
 - Apply summarization, tone-matching, or language translation on responses.
 - Add extra modules to reformat answers for specific platforms (Slack, blog, email).
 
-### 4. Multi-User Collaboration
+###### 4. Multi-User Collaboration
 - Implement session saving, team review logs, and multi-user access via authentication.
 - Tie outputs to named sessions stored on a database.
 
-### 5. Workflow Automation Hooks
+###### 5. Workflow Automation Hooks
 - Connect outputs to APIs like Notion, Google Docs, or CMS systems.
 - Auto-upload results to cloud storage or analytics pipelines.
 
-### 6. Scheduler Support
+###### 6. Scheduler Support
 - Automate batch prompt execution via CRON jobs or CI pipelines.
 - Log performance metrics over time and schedule recurring tasks.
 
 
 
-## Plugin Strategy
+#### Plugin Strategy
 
 A lightweight plugin architecture is being implemented to allow third-party developers to build and share extensions. The plugin manifest will:
 
@@ -677,13 +679,12 @@ A lightweight plugin architecture is being implemented to allow third-party deve
 This keeps the core system clean and gives advanced teams a framework to contribute powerfully.
 
 
-# Security, API Keys, and Configuration Safety
+## Security, API Keys, and Configuration Safety
 
 Security is a foundational concern in any tool that interacts with external APIs or handles sensitive content. This section outlines the best practices embedded into this tool to ensure safety, reliability, and confidentiality.
 
 
-
-## Environment Configuration
+#### Environment Configuration
 
 - API keys and tokens are stored securely using a `.env` file.
 - The `.env.example` template is provided to help users define their variables clearly without hardcoding secrets.
@@ -691,7 +692,7 @@ Security is a foundational concern in any tool that interacts with external APIs
 
 
 
-## Secrets Handling Guidelines
+#### Secrets Handling Guidelines
 
 - **No Keys in Code**: API keys are never written directly in the codebase.
 - **Git Ignore**: `.env` is included in `.gitignore` by default to prevent accidental commits.
@@ -700,7 +701,7 @@ Security is a foundational concern in any tool that interacts with external APIs
 
 
 
-## Secure Execution Environment
+#### Secure Execution Environment
 
 - Ensure the tool is executed in a virtual environment or container (e.g., Docker) to avoid exposing host credentials.
 - Logging avoids echoing sensitive input or API keys.
@@ -708,18 +709,18 @@ Security is a foundational concern in any tool that interacts with external APIs
 
 
 
-## Sample `.env.example` Template
+#### Sample `.env.example` Template
 
 ```
-# OpenAI
+## OpenAI
 OPENAI_API_KEY=sk-...
 DEFAULT_MODEL=gpt-4
 
-# OSS Model Settings
+## OSS Model Settings
 OSS_MODEL_PATH=./models/llama-model.gguf
 OSS_SERVER_URL=http://localhost:11434
 
-# Default Settings
+## Default Settings
 DEFAULT_BACKEND=openai
 DEFAULT_OUTPUT_FORMAT=md
 ```
@@ -727,13 +728,13 @@ DEFAULT_OUTPUT_FORMAT=md
 This setup is designed to offer maximum flexibility while maintaining strict adherence to security and deployment standards.
 
 
-# Maintaining, Scaling, and Contributing
+## Maintaining, Scaling, and Contributing
 
 The long-term success of this tool depends on clear maintenance practices, scalable development patterns, and a supportive contributor experience. This section outlines the key principles that make the project resilient, up-to-date, and open to collaboration.
 
 
 
-## Maintenance Guidelines
+#### Maintenance Guidelines
 
 - Keep dependencies updated regularly and check for known vulnerabilities using tools like `pip-audit`.
 - Review API rate limits and update retry strategies as models evolve.
@@ -741,8 +742,7 @@ The long-term success of this tool depends on clear maintenance practices, scala
 - Archive or deprecate unsupported models or endpoints with proper version tagging.
 
 
-
-## Scalability Tips
+#### Scalability Tips
 
 - **Backend Modularity**: Each LLM integration is placed in a separate file under `src/integrations/`, allowing horizontal expansion.
 - **Prompt Size Control**: Enforce prompt length validation to avoid unexpected token limits or pricing errors.
@@ -750,8 +750,7 @@ The long-term success of this tool depends on clear maintenance practices, scala
 - **Data Store (Optional)**: Use SQLite or MongoDB to log and store batch histories for reprocessing and audits.
 
 
-
-## Contributing to the Project
+#### Contributing to the Project
 
 We welcome contributions from engineers, educators, researchers, and developers. To get started:
 
@@ -762,8 +761,7 @@ We welcome contributions from engineers, educators, researchers, and developers.
 5. Reference issues or feature requests if applicable
 
 
-
-## Code Style & Standards
+#### Code Style & Standards
 
 - Follow `PEP8` for Python
 - Use `black` for formatting
@@ -772,8 +770,7 @@ We welcome contributions from engineers, educators, researchers, and developers.
 - Keep functions under 50 lines where possible
 
 
-
-## Issue Reporting
+#### Issue Reporting
 
 If you find a bug, security vulnerability, or documentation issue:
 - Open a GitHub issue with steps to reproduce (if applicable)
@@ -783,13 +780,12 @@ If you find a bug, security vulnerability, or documentation issue:
 This approach ensures that the project remains open, reliable, and responsive as more users and contributors adopt the workflow.
 
 
-# License, Credits, and Final Notes
+## License, Credits, and Final Notes
 
 This project is open-source and designed to benefit a wide community of prompt engineers, data scientists, AI educators, and productivity developers. It reflects real-world use cases and values transparency, security, and engineering best practices.
 
 
-
-## License
+#### License
 
 This project is released under the **MIT License**.
 
@@ -798,8 +794,7 @@ This project is released under the **MIT License**.
 - Attribution is appreciated but not required.
 
 
-
-## Acknowledgments
+#### Acknowledgments
 
 This tool was made possible by the inspiration, open knowledge, and contributions of:
 
@@ -811,8 +806,7 @@ This tool was made possible by the inspiration, open knowledge, and contribution
 Special thanks to everyone who tested early prototypes and gave valuable feedback.
 
 
-
-## Final Notes
+#### Final Notes
 
 - This is just the beginning. The prompt engineering ecosystem is evolving, and this tool aims to evolve with it.
 - Contributions, forks, plugins, and discussions are all welcome.
